@@ -1,0 +1,409 @@
+/* General Styles */
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background-image: url('back.jpg'); /* Set your image path here */
+    background-size: cover;       /* Ensure the image covers the entire background */
+    background-position: center;  /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black layer */
+    /* Blurs the background image */
+    z-index: -1;                    /* Places it behind other content */
+}
+
+h1 {
+    text-align: center;
+    font-size:3em;
+    margin-bottom: 0px;
+    color: #f2f2f2;
+    font-family: 'ABC Favorit Extended Variable Unlicensed Trial';
+}
+
+/* Container Setup */
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 0px;
+    height: 100%;
+}
+
+/* LED Grid Styles */
+#led-grid {
+    display: grid;
+    grid-template-columns: repeat(20, 40px);
+    grid-gap: 10px;
+    margin: 0 30px;
+    padding-top: 0px;
+    flex: 3;
+    height: calc(99vh - 100px);
+    overflow: hidden;
+    margin: 30px;
+}
+
+.led-circle {
+    width: 40px; /* Size of the circle */
+    height: 40px;
+    border-radius: 50%; /* Make it a circle */
+    background-color: gray; /* Default color */
+    display: inline-block;
+    margin: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+    
+}
+
+.led-circle.active {
+    background-color: rgb(74, 74, 74); /* Color when active */
+    box-shadow: 0 0 20px rgba(74, 74, 74, 0.5), 0 0 40px rgba(74, 74, 74, 0.3); /* Glow effect */
+}
+
+/* Menu Section - Scrollable */
+.menu {
+    flex: 1;
+    background: linear-gradient(180deg, #292727, #121212); /* Correct gradient background */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+/* Button Styles */
+/* Animation Buttons Section */
+
+
+/* Control Buttons */
+button {
+
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 0px 20px;
+    margin: 20px 0;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    text-align: center;
+    font-family: Poppins;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #004085;
+    transform: scale(0.95);
+}
+
+/* Color Picker */
+.color-selection {
+    margin-bottom: 30px;
+    margin-top: 40px;
+
+}
+
+
+#colorCanvas {
+    border-radius: 50%;
+    border: 4px solid #444;
+    cursor: pointer;
+}
+
+#selectedColor {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 10px auto;
+    border: 3px solid #f2f2f2;
+}
+
+#color-picker {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #444;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 50px;
+    border-radius: 50px;
+    width: 40%;
+    color: black;
+    text-align: left;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 
+    0 0 10px rgba(255, 255, 255, 0.3), 
+    0 0 15px rgba(255, 255, 255, 0.2); /* Subtle white glow */
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+/* Menu header section for buttons */
+.menu-header {
+    display: flex;
+    justify-content: space-between; /* Space between the buttons */
+    align-items: center;
+    width: 100%; /* Ensure the buttons are aligned with the container width */
+    position: relative;
+    padding: 10px 0;
+}
+ 
+
+/* Instruction button and Reset button styles - Circular */
+#instruction-button {
+    background-color: #f72585;
+    border: none;
+    border-radius: 50px; /* Makes the buttons circular */
+    color: white;
+    padding: 0; /* Remove extra padding */
+    width: 10px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: inline-flex; /* Change to inline-flex for consistency */
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    font-size: 15px; /* Adjust font size for better button visibility */
+}
+
+/* Reset button specific styles */
+#reset-button {
+    background-color: #f72585; /* Orange for reset */
+    margin: 20px;
+    padding-block: 10px;
+}
+
+
+#instruction-button:hover,
+#reset-button:hover {
+    transform: scale(1.05);
+}
+
+#instruction-button:active,
+#reset-button:active {
+    transform: scale(0.95);
+}
+
+
+.tabled-heading {
+    color: black;
+    text-align: left;
+}
+
+#hover-button {
+    background-color: #7209b7;
+}
+
+#click-button {
+    background-color: #80ed99;
+}
+
+#gesture-button {
+    background-color: #4361ee;
+}
+
+span {
+    padding-left: 5px;
+}
+
+#instruction-button {
+    position: absolute;
+    top: 10px;   /* Distance from the top of the menu */
+    right: 10px; /* Distance from the right side */
+    border: none;
+    border-radius: 20px; /* Optional styling to match other buttons */
+    color: white;
+    padding: 10px 15px; /* Adjust padding as needed */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#instruction-button:hover {
+    background-color: #0056b3;
+}
+
+#instruction-button:active {
+    transform: scale(0.95);
+}
+
+h2 {
+    text-align: left;
+    margin-bottom: -5px;
+    margin-top: 50px;
+}
+
+#mode-button {
+    background-color: '#7b2cbf' !important;
+}
+
+.main-heading {
+    text-align: left;
+    margin-left: 35px;
+    font-size: 35px; /* Increased size for better visibility */
+    background: linear-gradient(90deg, rgb(99, 255, 27), rgb(0, 255, 149)); /* Gradient from green to blue */
+    -webkit-background-clip: text; /* Clip the background to the text */
+    background-clip: text; /* For other browsers */
+    color: transparent; /* Make text color transparent to show the gradient */
+    letter-spacing: -0.7px;
+}
+
+
+
+.vertical-flex {
+    display: flex;                  /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between heading and buttons */
+    align-items: center;            /* Center items vertically */ 
+margin-bottom: 0px;
+margin-top: 20px;
+width: 100%;
+}
+
+
+.led-grid {
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.flex-bruh {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-buttons {
+    display: flex;
+    margin-right: 20px;
+    padding: 0px;
+}
+
+
+
+#mode-button {
+    background-color: #7b2cbf; /* Set a specific background color */
+    color: white;                   /* Button text color */
+    font-weight: bold;              /* Button text weight */
+    border: none;                   /* Remove border */
+    border-radius: 30px;           /* Round edges */          /* Padding around buttons */          /* Space between buttons */
+    cursor: pointer;                /* Pointer cursor */
+    transition: all 0.3s ease;     /* Smooth transition */
+}
+
+.header-one {
+    display: flex;
+}
+
+.header-one img {
+    width: 60px;
+    height: 70px;
+}
+
+.animations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 5px;
+    margin-bottom: 40px;
+}
+
+#animation1, #animation2, #animation3, #animation4, #animation5, #animation6 {
+    width: 45%;
+    padding-block: 3%;
+    margin-bottom: 0px;
+    border-bottom: 0px;
+}
+
+#animation1 {
+    background-image: url('sparkles.png'); /* Replace with the actual path to your image */
+    background-size: cover; /* This will make the image cover the entire area of the element */
+    background-position: center; /* Center the image within the element */
+
+}
+
+
+#animation2 {
+    background-image: url('rainbow.png'); /* Replace with the actual path to your image */
+    background-size: cover; /* This will make the image cover the entire area of the element */
+    background-position: center; /* Center the image within the element */
+}
+
+#animation3 {
+    background-image: url('mood.png'); /* Replace with the actual path to your image */
+    background-size: cover; /* This will make the image cover the entire area of the element */
+    background-position: center; /* Center the image within the element */
+}
+
+#animation4 {
+    background-image: url('sunset.png'); /* Replace with the actual path to your image */
+    background-size: cover; /* This will make the image cover the entire area of the element */
+    background-position: center; /* Center the image within the element */
+}
+
+#animation5 {
+    background-color: rgb(81, 0, 255);
+}
+
+#animation6 {
+    background-color: rgb(187, 0, 255);
+}
+
+h6 {
+    margin-top: 50px;
+    font-size: 13px;
+    font-weight: 200;
+}
+
+#my-color-picker-container {
+    padding-block: 30px;
+}

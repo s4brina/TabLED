@@ -214,6 +214,9 @@
         console.log("Cursor size adjusted to:", size);
       }
 
+
+
+
       // Create the LchCol
     </script>
   </head>
@@ -269,6 +272,38 @@
 
     });
   };
+
+  function startAnimation(animationType) {
+  if (animationType === 'animation1') {
+    // Trigger sparkle effect on LEDs
+    fetch('/sparkle');
+
+    // Start sparkle animation on screen
+    createSparkles();
+  }
+}
+
+
+function createSparkles() {
+  // Number of sparkles to generate
+  const sparkleCount = 50;
+
+  for (let i = 0; i < sparkleCount; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    document.body.appendChild(sparkle);
+
+    // Position sparkles randomly
+    sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+    sparkle.style.top = `${Math.random() * window.innerHeight}px`;
+
+    // Fade out sparkles after a short duration
+    setTimeout(() => {
+      sparkle.remove();
+    }, 800); // Adjust the duration if you want a longer/shorter sparkle
+  }
+}
+
 </script>
 
           
@@ -296,7 +331,19 @@
             Chill
           </button>
           <button id="animation4" onclick="startAnimation('animation4')">
-            Sunset
+            Bounce
+          </button>
+          <button id="animation5" onclick="startAnimation('animation5')">
+            Breathe
+          </button>
+          <button id="animation6" onclick="startAnimation('animation6')">
+            Ripple
+          </button>
+          <button id="animation7" onclick="startAnimation('animation7')">
+            Comet
+          </button>
+          <button id="animation8" onclick="startAnimation('animation8')">
+            Party
           </button>
         </div>
 
@@ -329,7 +376,113 @@
         </div>
       </div>
     </div>
+    <script>
+function startAnimation(animationType) {
+    if (animationType === 'animation1') {
+        // Trigger sparkle effect on LEDs
+        fetch('/sparkle')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
 
+        // Start sparkle animation on screen
+        createSparkles();
+    } else if (animationType === 'animation2') {
+        // Trigger rainbow effect on LEDs
+        fetch('/rainbow')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+        
+        // Start rainbow animation on screen
+        createRainbow();
+    } else if (animationType === 'animation3') {
+        // Trigger chill effect on LEDs
+        fetch('/chill')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+
+        // Start chill animation on screen
+        createChill(); // Assume you have a function to handle the chill animation visually
+    } else if (animationType === 'animation4') {
+        // Trigger chill effect on LEDs
+        fetch('/sunset')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+
+        // Start chill animation on screen
+        createSunset(); // Assume you have a function to handle the chill animation visually
+    } else if (animationType === 'animation5') {
+        // Trigger chill effect on LEDs
+        fetch('/breathe')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+
+        // Start chill animation on screen
+        createBreathe(); // Assume you have a function to handle the chill animation visually
+    } else if (animationType === 'animation6') {
+        // Trigger chill effect on LEDs
+        fetch('/ripple')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+
+        // Start chill animation on screen
+        createRipple(); // Assume you have a function to handle the chill animation visually
+    } else if (animationType === 'animation7') {
+        // Trigger chill effect on LEDs
+        fetch('/comet')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+
+        // Start chill animation on screen
+        createComet(); // Assume you have a function to handle the chill animation visually
+    } else if (animationType === 'animation8') {
+        // Trigger chill effect on LEDs
+        fetch('/confetti')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+
+        // Start chill animation on screen
+        createCONFETTI(); // Assume you have a function to handle the chill animation visually
+    }
+    
+}
+
+function createSparkles() {
+
+}
+
+function createRainbow() {
+}
+
+function createChill() {
+   
+}
+function createSunset() {
+
+}
+function createBreathe() {
+
+}
+
+function createRipple() {
+
+}
+
+function createComet() {
+
+}
+
+function createCONFETTI() {
+
+}
+    </script>
     <script src="colorwheel.js"></script>
   </body>
 </html>

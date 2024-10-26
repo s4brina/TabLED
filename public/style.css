@@ -242,14 +242,17 @@ button:active {
 
 #hover-button {
     background-color: #7209b7;
+    padding-block: 10px;
 }
 
 #click-button {
     background-color: #80ed99;
+    padding-block: 10px;
 }
 
 #gesture-button {
     background-color: #4361ee;
+    padding-block: 10px;
 }
 
 span {
@@ -356,47 +359,40 @@ width: 100%;
     gap: 5px;
     margin-bottom: 40px;
 }
-
-#animation1, #animation2, #animation3, #animation4, #animation5, #animation6 {
+/* General button styles */
+#animation1, #animation2, #animation3, #animation4, #animation5, #animation6, #animation7, #animation8, #animation9 {
     width: 45%;
     padding-block: 3%;
     margin-bottom: 0px;
     border-bottom: 0px;
+    color: white; /* Ensure the text color contrasts well */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-color 0s ease; /* Smooth transition */
 }
 
-#animation1 {
-    background-image: url('sparkles.png'); /* Replace with the actual path to your image */
-    background-size: cover; /* This will make the image cover the entire area of the element */
-    background-position: center; /* Center the image within the element */
+/* Individual background images */
+#animation1 { background-image: url('sparkles.png'); }
+#animation2 { background-image: url('rainbow.png'); }
+#animation3 { background-image: url('mood.png'); }
+#animation4 { background-image: url('bouncey.png'); }
+#animation5 { background-image: url('breathe.png'); }
+#animation6 { background-image: url('ripple.png'); }
+#animation7 { background-image: url('comet.png'); }
+#animation8 { background-image: url('party.png'); }
 
+/* Darken effect on hover */
+#animation1:hover, #animation2:hover, #animation3:hover, #animation4:hover, 
+#animation5:hover, #animation6:hover, #animation7:hover, #animation8:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    background-blend-mode: darken; /* Darkens only the background image */
 }
 
-
-#animation2 {
-    background-image: url('rainbow.png'); /* Replace with the actual path to your image */
-    background-size: cover; /* This will make the image cover the entire area of the element */
-    background-position: center; /* Center the image within the element */
-}
-
-#animation3 {
-    background-image: url('mood.png'); /* Replace with the actual path to your image */
-    background-size: cover; /* This will make the image cover the entire area of the element */
-    background-position: center; /* Center the image within the element */
-}
-
-#animation4 {
-    background-image: url('sunset.png'); /* Replace with the actual path to your image */
-    background-size: cover; /* This will make the image cover the entire area of the element */
-    background-position: center; /* Center the image within the element */
-}
-
-#animation5 {
-    background-color: rgb(81, 0, 255);
-}
-
-#animation6 {
-    background-color: rgb(187, 0, 255);
-}
 
 h6 {
     margin-top: 50px;
@@ -407,3 +403,4 @@ h6 {
 #my-color-picker-container {
     padding-block: 30px;
 }
+

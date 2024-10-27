@@ -2,15 +2,18 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const { SerialPort } = require('serialport');
+const bodyParser = require('body-parser');
+
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
 const port = new SerialPort({
-    path: '/dev/cu.usbmodem1101', // Ensure this matches your Arduino's serial port
+    path: '/dev/cu.usbmodem1101', 
     baudRate: 9600,
 });
+app.use(bodyParser.json());
 
 port.on('open', () => {
     console.log('Serial port opened successfully.');
@@ -19,6 +22,7 @@ port.on('open', () => {
 port.on('error', (err) => {
     console.error('Serial port error:', err.message);
 });
+
 
 app.get('/sparkle', (req, res) => {
     try {
@@ -37,7 +41,7 @@ app.get('/sparkle', (req, res) => {
 
 app.get('/rainbow', (req, res) => {
     try {
-        port.write('RAINBOW', (err) => {  // Send 'R' to trigger the rainbow effect
+        port.write('RAINBOW', (err) => {  
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send rainbow command');
@@ -52,7 +56,7 @@ app.get('/rainbow', (req, res) => {
 
 app.get('/chill', (req, res) => {
     try {
-        port.write('CHILL', (err) => {  // Send 'CHILL' to trigger the chill animation
+        port.write('CHILL', (err) => {  
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send chill command');
@@ -68,7 +72,7 @@ app.get('/chill', (req, res) => {
 
 app.get('/sunset', (req, res) => {
     try {
-        port.write('SUNSET', (err) => { // Send 'SUNSET' to trigger the sunset effect
+        port.write('SUNSET', (err) => { 
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send sunset command');
@@ -83,7 +87,7 @@ app.get('/sunset', (req, res) => {
 
 app.get('/breathe', (req, res) => {
     try {
-        port.write('BREATHE', (err) => { // Send 'SUNSET' to trigger the sunset effect
+        port.write('BREATHE', (err) => {
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send sunset command');
@@ -98,7 +102,7 @@ app.get('/breathe', (req, res) => {
 
 app.get('/ripple', (req, res) => {
     try {
-        port.write('RIPPLE', (err) => { // Send 'SUNSET' to trigger the sunset effect
+        port.write('RIPPLE', (err) => { 
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send sunset command');
@@ -113,7 +117,7 @@ app.get('/ripple', (req, res) => {
 
 app.get('/comet', (req, res) => {
     try {
-        port.write('COMET', (err) => { // Send 'SUNSET' to trigger the sunset effect
+        port.write('COMET', (err) => { 
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send sunset command');
@@ -129,7 +133,7 @@ app.get('/comet', (req, res) => {
 
 app.get('/confetti', (req, res) => {
     try {
-        port.write('CONFETTI', (err) => { // Send 'SUNSET' to trigger the sunset effect
+        port.write('CONFETTI', (err) => { 
             if (err) {
                 console.error('Error writing to Arduino:', err.message);
                 return res.status(500).send('Failed to send sunset command');
@@ -141,6 +145,9 @@ app.get('/confetti', (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+
+
 
 
 io.on('connection', (socket) => {

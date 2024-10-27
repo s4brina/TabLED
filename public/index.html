@@ -78,24 +78,29 @@
       }
 
       function toggleLED(ledNumber) {
-    const currentState = ledStates[ledNumber - 1];
-    const circle = document.getElementById(`led-${ledNumber}`);
+        const currentState = ledStates[ledNumber - 1];
+        const circle = document.getElementById(`led-${ledNumber}`);
 
-    if (currentState) {
-        // Turn off the LED
-        socket.emit("ledToggle", { ledNumber, color: { r: 0, g: 0, b: 0 } });
-        ledStates[ledNumber - 1] = false;
-        circle.style.backgroundColor = "gray"; // Reset to gray instantly
-    } else {
-        // Turn on the LED with the selected color
-        socket.emit("ledToggle", { ledNumber, color: selectedColor });
-        ledStates[ledNumber - 1] = true;
-        circle.style.backgroundColor = `rgb(${selectedColor.r}, ${selectedColor.g}, ${selectedColor.b})`;
-    }
+        if (currentState) {
+          // Turn off the LED
+          socket.emit("ledToggle", { ledNumber, color: { r: 0, g: 0, b: 0 } });
+          ledStates[ledNumber - 1] = false;
+          circle.style.backgroundColor = "gray"; // Reset to gray instantly
+        } else {
+          // Turn on the LED with the selected color
+          socket.emit("ledToggle", { ledNumber, color: selectedColor });
+          ledStates[ledNumber - 1] = true;
+          circle.style.backgroundColor = `rgb(${selectedColor.r}, ${selectedColor.g}, ${selectedColor.b})`;
+        }
 
-    console.log(`Toggling LED ${ledNumber} to ${currentState ? "off" : "on"} with color (${selectedColor.r}, ${selectedColor.g}, ${selectedColor.b})`);
-}
-
+        console.log(
+          `Toggling LED ${ledNumber} to ${
+            currentState ? "off" : "on"
+          } with color (${selectedColor.r}, ${selectedColor.g}, ${
+            selectedColor.b
+          })`
+        );
+      }
 
       function createLEDGrid() {
         const container = document.getElementById("led-grid");
@@ -117,7 +122,6 @@
           container.appendChild(circle);
         }
       }
-      
 
       function handleMouseMove(event) {
         const ledCircles = document.querySelectorAll(".led-circle");
@@ -136,21 +140,16 @@
             circle.style.backgroundColor = "gray"; // Reset color if not hovered
           }
         });
-      
 
-
-  // If no LED is hovered, clear all colors
-  if (!hoveredLED) {
-    ledCircles.forEach((circle, index) => {
-      if (!ledStates[index]) {
-        circle.style.backgroundColor = "gray"; // Reset color if not locked
+        // If no LED is hovered, clear all colors
+        if (!hoveredLED) {
+          ledCircles.forEach((circle, index) => {
+            if (!ledStates[index]) {
+              circle.style.backgroundColor = "gray"; // Reset color if not locked
+            }
+          });
+        }
       }
-    });
-  }
-}
-
-
-
 
       function updateLEDGrid() {
         const container = document.getElementById("led-grid");
@@ -214,9 +213,6 @@
         console.log("Cursor size adjusted to:", size);
       }
 
-
-
-
       // Create the LchCol
     </script>
   </head>
@@ -230,7 +226,9 @@
           </div>
 
           <div class="header-buttons">
-            <button id="reset-button" onclick="resetLEDs()">🔄 Reset LEDs</button>
+            <button id="reset-button" onclick="resetLEDs()">
+              🔄 Reset LEDs
+            </button>
             <button id="mode-button">👆 Click Mode</button>
             <!-- LED Grid -->
           </div>
@@ -246,69 +244,63 @@
         <div class="box">
           <h2>🎨 Colour Picker</h2>
           <div id="my-color-picker-container"></div>
-<script src="https://cdn.jsdelivr.net/npm/lch-color-wheel@0.4.1"></script>
-<script>
-  window.onload = function () {
-    var colorWheel = new LchColorWheel({
-      appendTo: document.getElementById("my-color-picker-container"),
-      wheelDiameter: 280,
-      handleDiameter: 30,
-      wheelThickness: 40,
-      onChange: function (colorWheel) {
-    const rgb = colorWheel.rgb;
-    // Update the selectedColor for other functions
-    selectedColor = { r: rgb[0], g: rgb[1], b: rgb[2] };
-    
-    // Emit the color to the server or Arduino
-    socket.emit("fadeToColor", {
-        ledNumber: 1, // Specify which LED or send an array if necessary
-        color: selectedColor,
-        duration: 500,
-    });
+          <script src="https://cdn.jsdelivr.net/npm/lch-color-wheel@0.4.1"></script>
+          <script>
+            
+            window.onload = function () {
+              var colorWheel = new LchColorWheel({
+                appendTo: document.getElementById("my-color-picker-container"),
+                wheelDiameter: 280,
+                handleDiameter: 30,
+                wheelThickness: 40,
+                onChange: function (colorWheel) {
+                  const rgb = colorWheel.rgb;
+                  // Update the selectedColor for other functions
+                  selectedColor = { r: rgb[0], g: rgb[1], b: rgb[2] };
 
-    // Optional: Log the selected color
-    console.log("Selected RGB:", selectedColor);
-}
+                  // Emit the color to the server or Arduino
+                  socket.emit("fadeToColor", {
+                    ledNumber: 1, // Specify which LED or send an array if necessary
+                    color: selectedColor,
+                    duration: 500,
+                  });
 
-    });
-  };
+                  // Optional: Log the selected color
+                  console.log("Selected RGB:", selectedColor);
+                },
+              });
+            };
 
-  function startAnimation(animationType) {
-  if (animationType === 'animation1') {
-    // Trigger sparkle effect on LEDs
-    fetch('/sparkle');
+            function startAnimation(animationType) {
+              if (animationType === "animation1") {
+                // Trigger sparkle effect on LEDs
+                fetch("/sparkle");
 
-    // Start sparkle animation on screen
-    createSparkles();
-  }
-}
+                // Start sparkle animation on screen
+                createSparkles();
+              }
+            }
 
+            function createSparkles() {
+              // Number of sparkles to generate
+              const sparkleCount = 50;
 
-function createSparkles() {
-  // Number of sparkles to generate
-  const sparkleCount = 50;
+              for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement("div");
+                sparkle.className = "sparkle";
+                document.body.appendChild(sparkle);
 
-  for (let i = 0; i < sparkleCount; i++) {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    document.body.appendChild(sparkle);
+                // Position sparkles randomly
+                sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+                sparkle.style.top = `${Math.random() * window.innerHeight}px`;
 
-    // Position sparkles randomly
-    sparkle.style.left = `${Math.random() * window.innerWidth}px`;
-    sparkle.style.top = `${Math.random() * window.innerHeight}px`;
-
-    // Fade out sparkles after a short duration
-    setTimeout(() => {
-      sparkle.remove();
-    }, 800); // Adjust the duration if you want a longer/shorter sparkle
-  }
-}
-
-</script>
-
-          
-
-         
+                // Fade out sparkles after a short duration
+                setTimeout(() => {
+                  sparkle.remove();
+                }, 800); // Adjust the duration if you want a longer/shorter sparkle
+              }
+            }
+          </script>
         </div>
 
         <div class="controls">
@@ -316,9 +308,38 @@ function createSparkles() {
         </div>
 
         <div class="controls">
-          <label for="cursor-size">Brightness:</label>
-          <input type="range" id="cursor-size" min="1" max="10" value="3" />
+            <label for="brightness">Brightness:</label>
+            <input type="range" id="brightness" min="0" max="255" value="127" />
         </div>
+
+        <script>
+            document.getElementById("brightness").addEventListener("input", function () {
+                const brightnessValue = this.value;
+        
+                // Send brightness value to server
+                fetch("/set-brightness", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ brightness: String(brightnessValue) }), // Ensure this is a string
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Brightness updated:', data);
+                })
+                .catch(error => {
+                    console.error('Error sending brightness:', error);
+                });
+            });
+        </script>
+
+
         <h2>🕺 Animations</h2>
         <div class="animations">
           <button id="animation1" onclick="startAnimation('animation1')">
@@ -377,111 +398,95 @@ function createSparkles() {
       </div>
     </div>
     <script>
-function startAnimation(animationType) {
-    if (animationType === 'animation1') {
-        // Trigger sparkle effect on LEDs
-        fetch('/sparkle')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+      function startAnimation(animationType) {
+        if (animationType === "animation1") {
+          // Trigger sparkle effect on LEDs
+          fetch("/sparkle")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start sparkle animation on screen
-        createSparkles();
-    } else if (animationType === 'animation2') {
-        // Trigger rainbow effect on LEDs
-        fetch('/rainbow')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
-        
-        // Start rainbow animation on screen
-        createRainbow();
-    } else if (animationType === 'animation3') {
-        // Trigger chill effect on LEDs
-        fetch('/chill')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+          // Start sparkle animation on screen
+          createSparkles();
+        } else if (animationType === "animation2") {
+          // Trigger rainbow effect on LEDs
+          fetch("/rainbow")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start chill animation on screen
-        createChill(); // Assume you have a function to handle the chill animation visually
-    } else if (animationType === 'animation4') {
-        // Trigger chill effect on LEDs
-        fetch('/sunset')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+          // Start rainbow animation on screen
+          createRainbow();
+        } else if (animationType === "animation3") {
+          // Trigger chill effect on LEDs
+          fetch("/chill")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start chill animation on screen
-        createSunset(); // Assume you have a function to handle the chill animation visually
-    } else if (animationType === 'animation5') {
-        // Trigger chill effect on LEDs
-        fetch('/breathe')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+          // Start chill animation on screen
+          createChill(); // Assume you have a function to handle the chill animation visually
+        } else if (animationType === "animation4") {
+          // Trigger chill effect on LEDs
+          fetch("/sunset")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start chill animation on screen
-        createBreathe(); // Assume you have a function to handle the chill animation visually
-    } else if (animationType === 'animation6') {
-        // Trigger chill effect on LEDs
-        fetch('/ripple')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+          // Start chill animation on screen
+          createSunset(); // Assume you have a function to handle the chill animation visually
+        } else if (animationType === "animation5") {
+          // Trigger chill effect on LEDs
+          fetch("/breathe")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start chill animation on screen
-        createRipple(); // Assume you have a function to handle the chill animation visually
-    } else if (animationType === 'animation7') {
-        // Trigger chill effect on LEDs
-        fetch('/comet')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+          // Start chill animation on screen
+          createBreathe(); // Assume you have a function to handle the chill animation visually
+        } else if (animationType === "animation6") {
+          // Trigger chill effect on LEDs
+          fetch("/ripple")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start chill animation on screen
-        createComet(); // Assume you have a function to handle the chill animation visually
-    } else if (animationType === 'animation8') {
-        // Trigger chill effect on LEDs
-        fetch('/confetti')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error("Error:", error));
+          // Start chill animation on screen
+          createRipple(); // Assume you have a function to handle the chill animation visually
+        } else if (animationType === "animation7") {
+          // Trigger chill effect on LEDs
+          fetch("/comet")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-        // Start chill animation on screen
-        createCONFETTI(); // Assume you have a function to handle the chill animation visually
-    }
-    
-}
+          // Start chill animation on screen
+          createComet(); // Assume you have a function to handle the chill animation visually
+        } else if (animationType === "animation8") {
+          // Trigger chill effect on LEDs
+          fetch("/confetti")
+            .then((response) => response.text())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
 
-function createSparkles() {
+          // Start chill animation on screen
+          createCONFETTI(); // Assume you have a function to handle the chill animation visually
+        }
+      }
 
-}
+      function createSparkles() {}
 
-function createRainbow() {
-}
+      function createRainbow() {}
 
-function createChill() {
-   
-}
-function createSunset() {
+      function createChill() {}
+      function createSunset() {}
+      function createBreathe() {}
 
-}
-function createBreathe() {
+      function createRipple() {}
 
-}
+      function createComet() {}
 
-function createRipple() {
-
-}
-
-function createComet() {
-
-}
-
-function createCONFETTI() {
-
-}
+      function createCONFETTI() {}
     </script>
     <script src="colorwheel.js"></script>
   </body>
